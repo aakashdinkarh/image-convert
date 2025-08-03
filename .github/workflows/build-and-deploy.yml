@@ -39,11 +39,12 @@ jobs:
           # Remove all files except .git
           git rm -rf . || true
 
-          # Copy built files from dist to root
-          cp -r dist/* .
+          # Copy only the built files from dist to root
+          cp dist/index.html .
+          cp dist/bundle.js .
 
-          # Add all files
-          git add .
+          # Add only the built files
+          git add index.html bundle.js
 
           # Commit and push
           git commit -m "Build from ${{ github.sha }}"
