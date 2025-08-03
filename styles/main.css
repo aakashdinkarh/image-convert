@@ -1,0 +1,133 @@
+/* Main Layout */
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* File Input Container */
+.file-input-container {
+  margin: 20px 0;
+}
+
+/* Progress Container */
+.progress-container {
+  margin: 20px 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* File List */
+.file-list {
+  margin: 20px 0;
+}
+
+.file-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* File Status */
+.file-status {
+  font-size: 12px;
+  color: #666;
+}
+
+.file-status.loading {
+  color: #2196f3;
+}
+
+.file-status.completed {
+  color: #4caf50;
+}
+
+.file-status.error {
+  color: #f44336;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Action Links */
+.action-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.action-links a {
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 3px;
+  font-size: 12px;
+  color: white;
+}
+
+.download-link {
+  background-color: #2196f3;
+}
+
+.download-link:hover {
+  background-color: #1976d2;
+}
+
+.view-link {
+  background-color: #ff9800;
+}
+
+.view-link:hover {
+  background-color: #f57c00;
+}
+
+/* File Info */
+.file-info {
+  font-size: 11px;
+  color: #888;
+  margin-top: 3px;
+}
+
+.size-reduction {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.size-increase {
+  color: #f44336;
+  font-weight: bold;
+}

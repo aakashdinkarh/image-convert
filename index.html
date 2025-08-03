@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to WebP Converter</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <h1>Image to WebP Converter</h1>
+    
+    <div class="file-input-container">
+        <input type="file" multiple id="fileInput" accept="image/*">
+        <button id="convertButton" disabled>Convert to WebP</button>
+    </div>
+    
+    <div class="progress-container" id="progressContainer" style="display: none;">
+        <h3>Reading Files...</h3>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div id="progressText">0 / 0 files processed</div>
+    </div>
+    
+    <div class="file-list" id="fileList"></div>
+    <div id="output"></div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html> 
