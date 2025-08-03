@@ -11,6 +11,34 @@ body {
   margin: 20px 0;
 }
 
+/* Format Selection */
+.format-selection {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.format-selection label {
+  font-weight: bold;
+  color: #333;
+}
+
+.format-selection select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.format-selection select:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
 /* Progress Container */
 .progress-container {
   margin: 20px 0;

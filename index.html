@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image to WebP Converter</title>
+    <title>Image Converter - WebP & AVIF</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <h1>Image to WebP Converter</h1>
+    <h1>Image Converter</h1>
     
     <div class="file-input-container">
         <input type="file" multiple id="fileInput" accept="image/*">
-        <button id="convertButton" disabled>Convert to WebP</button>
+        <div class="format-selection">
+            <label for="formatSelect">Convert to:</label>
+            <select id="formatSelect">
+                <option value="webp">WebP</option>
+                <option value="avif">AVIF</option>
+            </select>
+        </div>
+        <button id="convertButton" disabled>Convert Images</button>
     </div>
     
     <div class="progress-container" id="progressContainer" style="display: none;">

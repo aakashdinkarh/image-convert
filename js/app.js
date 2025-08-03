@@ -29,6 +29,15 @@ class ImageConverterApp {
     }
 
     /**
+     * Get the currently selected format
+     * @returns {string} Selected format (webp or avif)
+     */
+    getSelectedFormat() {
+        const formatSelect = document.getElementById('formatSelect');
+        return formatSelect.value;
+    }
+
+    /**
      * Handle file selection from input
      * @param {Event} event - File input change event
      */
@@ -56,6 +65,7 @@ class ImageConverterApp {
      */
     async handleConvert() {
         const processedFiles = this.fileProcessor.getProcessedFiles();
+        const selectedFormat = this.getSelectedFormat();
         
         if (processedFiles.length === 0) {
             alert('No files to convert. Please select files first.');
@@ -71,10 +81,10 @@ class ImageConverterApp {
         let convertedFilesCount = 0;
         for (const fileData of processedFiles) {
             try {
-                this.ui.updateFileStatus(fileData.index, 'Converting to WebP...', 'loading');
+                this.ui.updateFileStatus(fileData.index, `Converting to ${selectedFormat.toUpperCase()}...`, 'loading');
                 
-                const result = await this.imageConverter.convertToWebP(fileData);
-                this.ui.displayConversionResult(fileData.index, result);
+                const result = await this.imageConverter.convertToFormat(fileData, selectedFormat);
+                this.ui.displayConversionResult(fileData.index, result, selectedFormat);
                 
             } catch (error) {
                 console.error('Error converting file:', fileData.file.name, error);

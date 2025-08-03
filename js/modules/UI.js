@@ -116,23 +116,25 @@ export class UI {
      * Display conversion result
      * @param {number} index - File index
      * @param {Object} result - Conversion result
+     * @param {string} format - Target format (webp or avif)
      */
-    async displayConversionResult(index, result) {
+    async displayConversionResult(index, result, format) {
         const { dataUrl, originalSize, convertedSize, reductionPercentage, fileName } = result;
         
         // Update file info
         const fileInfoElement = document.getElementById(`file-info-${index}`);
         const sizeClass = reductionPercentage > 0 ? 'size-reduction' : 'size-increase';
         const sizeText = reductionPercentage > 0 ? 'reduced' : 'increased';
+        const formatUpper = format.toUpperCase();
         
         fileInfoElement.innerHTML = `
             Original: ${(originalSize / 1024).toFixed(1)} KB | 
-            WebP: ${(convertedSize / 1024).toFixed(1)} KB | 
+            ${formatUpper}: ${(convertedSize / 1024).toFixed(1)} KB | 
             <span class="${sizeClass}">${sizeText} by ${Math.abs(reductionPercentage)}%</span>
         `;
         
         // Create action links
-        const actionLinks = await this.createActionLinks(dataUrl, fileName);
+        const actionLinks = await this.createActionLinks(dataUrl, fileName, format);
         
         // Update status with action links
         const statusElement = document.getElementById(`status-${index}`);
@@ -145,9 +147,10 @@ export class UI {
      * Create action links for download and view
      * @param {string} dataUrl - Data URL of converted image
      * @param {string} fileName - Name of the file
+     * @param {string} format - Target format (webp or avif)
      * @returns {Promise<HTMLElement>} Action links container
      */
-    async createActionLinks(dataUrl, fileName) {
+    async createActionLinks(dataUrl, fileName, format) {
         const actionLinks = document.createElement('div');
         actionLinks.className = 'action-links';
         
@@ -155,7 +158,7 @@ export class UI {
         const downloadLink = document.createElement('a');
         downloadLink.href = dataUrl;
         downloadLink.download = fileName;
-        downloadLink.textContent = 'Download WebP';
+        downloadLink.textContent = `Download ${format.toUpperCase()}`;
         downloadLink.className = 'download-link';
         
         // Create view link
@@ -165,7 +168,7 @@ export class UI {
         const blobUrl = URL.createObjectURL(blob);
         viewLink.href = blobUrl;
         viewLink.target = '_blank';
-        viewLink.textContent = 'View WebP';
+        viewLink.textContent = `View ${format.toUpperCase()}`;
         viewLink.className = 'view-link';
         
         actionLinks.appendChild(downloadLink);
