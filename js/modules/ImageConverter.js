@@ -3,7 +3,7 @@
  */
 export class ImageConverter {
     constructor() {
-        this.apiEndpoint = 'http://localhost:3001/api/image-convert';
+        this.apiEndpoint = 'https://central-server-app.vercel.app/api/image-convert';
     }
 
     /**
@@ -69,20 +69,4 @@ export class ImageConverter {
             throw error;
         }
     }
-
-    /**
-     * Set the API endpoint
-     * @param {string} endpoint - New API endpoint URL
-     */
-    setApiEndpoint(endpoint) {
-        this.apiEndpoint = endpoint;
-    }
-
-    /**
-     * Get the current API endpoint
-     * @returns {string} Current API endpoint
-     */
-    getApiEndpoint() {
-        return this.apiEndpoint;
-    }
-} 
+}
