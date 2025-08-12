@@ -79,7 +79,7 @@ class ImageConverterApp {
         });
 
         let convertedFilesCount = 0;
-        for (const fileData of processedFiles) {
+        processedFiles.forEach(async (fileData) => {
             try {
                 this.ui.updateFileStatus(fileData.index, `Converting to ${selectedFormat.toUpperCase()}...`, 'loading');
                 
@@ -95,7 +95,7 @@ class ImageConverterApp {
                     resolveWaitForAllFilesToBeConverted();
                 }
             }
-        }
+        });
 
         waitForAllFilesToBeConverted.then(() => {
             this.ui.showConvertedMessage();
