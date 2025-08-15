@@ -1,8 +1,11 @@
 name: Build and Deploy
 
 on:
+  # Runs on pushes targeting the default branch
   push:
     branches: [master]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -14,11 +17,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.FORCE_PUSH_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
@@ -30,8 +35,8 @@ jobs:
       - name: Deploy to remote-build branch
         run: |
           # Configure git
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "aakashdinkarh@gmail.com"
+          git config --local user.name "Aakash Dinkar Workflow Bot"
 
           # Create or switch to remote-build branch
           git checkout --orphan remote-build || git checkout remote-build
@@ -48,7 +53,7 @@ jobs:
 
           # Commit and push
           git commit -m "Build from ${{ github.sha }}"
-          git push origin remote-build --force
+          git push https://x-access-token:${{ secrets.FORCE_PUSH_TOKEN }}@github.com/aakashdinkarh/projects.git HEAD:remote-build --force
 
       - name: Show build info
         run: |
