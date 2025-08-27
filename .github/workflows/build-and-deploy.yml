@@ -53,7 +53,7 @@ jobs:
 
           # Commit and push
           git commit -m "Build from ${{ github.sha }}"
-          git push https://x-access-token:${{ secrets.FORCE_PUSH_TOKEN }}@github.com/aakashdinkarh/projects.git HEAD:remote-build --force
+          git push https://x-access-token:${{ secrets.FORCE_PUSH_TOKEN }}@github.com/aakashdinkarh/image-convert.git HEAD:remote-build --force
 
       - name: Show build info
         run: |
