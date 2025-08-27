@@ -3,35 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter - WebP & AVIF</title>
+    <title>Free Online Image Converter | PNG to WebP & AVIF | Aakash Dinkar</title>
+    <meta name="description" content="Convert PNG and JPEG images instantly to WebP or AVIF online. Free, fast, and privacy-friendly image converter tool by Aakash Dinkar. No installation required.">
+    <meta name="keywords" content="image convert, png to webp, png to avif, jpg to webp, jpg to avif, online image converter, free image convert, compress images, image optimization tool, convert images online">
+    <meta name="author" content="Aakash Dinkar">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="google" content="notranslate">
+    <meta name="google-site-verification" content="google-site-verification=google-site-verification">
+
+    <meta property="og:title" content="Free Online Image Converter - PNG/JPEG to WebP & AVIF">
+    <meta property="og:description" content="Convert PNG and JPEG images to modern formats WebP & AVIF. Fast, free, and privacy-first image converter by Aakash Dinkar.">
+    <meta property="og:url" content="https://aakashdinkar.in/image-convert/">
+    <meta property="og:image" content="http://aakashdinkarh.github.io/static_assets/images/projects/webp/image-convert.webp">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Online Image Converter - PNG/JPEG to WebP & AVIF">
+    <meta name="twitter:description" content="Convert PNG and JPEG images to modern formats WebP & AVIF. Fast, free, and privacy-first image converter by Aakash Dinkar.">
+    <meta name="twitter:image" content="http://aakashdinkarh.github.io/static_assets/images/projects/webp/image-convert.webp">
+    <meta name="twitter:site" content="@aakashdinkarh">
+    <meta name="twitter:creator" content="@aakashdinkarh">
+    <meta name="twitter:domain" content="aakashdinkar.in">
+
+    <!-- google crawling -->
+	<meta name="google-site-verification" content="DCYDep9j5s7cyTxOdQrS3FYiHIfOwh1Laa-tgcAdxR8" />
+	<script>
+		// Check if the current URL is the live website
+		if (window.location.hostname === 'aakashdinkar.in') {
+		  // Google tag (gtag.js)
+		  const script = document.createElement("script");
+		  script.src = "https://www.googletagmanager.com/gtag/js?id=G-B7Q8NCFNR6";
+		  script.async = true;
+		  document.head.appendChild(script);
+  
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag() {
+			dataLayer.push(arguments);
+		  }
+		  gtag("js", new Date());
+		  gtag("config", "G-B7Q8NCFNR6");
+		}
+	</script>
+
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <h1>Image Converter</h1>
-    
-    <div class="file-input-container">
-        <input type="file" multiple id="fileInput" accept="image/*">
-        <div class="format-selection">
-            <label for="formatSelect">Convert to:</label>
-            <select id="formatSelect">
-                <option value="webp">WebP</option>
-                <option value="avif">AVIF</option>
-            </select>
+    <p>Image Convert is a free online tool that helps you convert PNG and JPEG images into modern formats like WebP and AVIF. Optimized images mean faster websites and better SEO for your projects.</p>
+
+    <div class="main-container">
+        <!-- Left Column: Content & Information -->
+        <div class="content-section">
+            <p class="benefits-highlight">Upload your image now and get an optimized WebP or AVIF version instantly – no sign-up required!</p>
+
+            <div class="benefits-section">
+                <h2>Why Use Image Convert?</h2>
+                <p>Modern websites need modern image formats. Traditional JPEG and PNG images are heavy, which slows down your website. WebP and AVIF are the next-generation formats that:</p>
+                <p><strong>Reduce image size by up to 80% without losing quality</strong></p>
+                <p><strong>Improve page load speed & SEO</strong></p>
+                <p><strong>Work across most modern browsers</strong></p>
+                <p>With Image Convert, you can instantly convert your images online for free.</p>
+            </div>
+
+            <div class="features-section">
+                <h2>⚡ Features</h2>
+                <p><strong>Convert PNG/JPEG to WebP & AVIF instantly</strong></p>
+                <p><strong>Free & secure – no sign-ups, no tracking</strong></p>
+                <p><strong>Fast – images process in seconds</strong></p>
+                <p><strong>Browser-based – works online, no installation needed</strong></p>
+            </div>
+
+            <div class="faq-section">
+                <h2>❓ Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <p><strong>What is WebP?</strong></p>
+                    <p>WebP is a modern image format developed by Google that provides superior compression compared to JPEG and PNG.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>What is AVIF?</strong></p>
+                    <p>AVIF (AV1 Image File Format) is the latest image standard, offering even better compression than WebP while keeping quality high.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>Why should I use Image Convert?</strong></p>
+                    <p>Because it's free, instant, and privacy-friendly. No files are stored on servers; everything happens directly in your browser.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>Do converted images work on all browsers?</strong></p>
+                    <p>WebP works on almost all browsers (Chrome, Edge, Firefox, Safari 14+).</p>
+                    <p>AVIF works on most modern browsers (Chrome, Firefox, Edge, Safari 16+).</p>
+                </div>
+            </div>
         </div>
-        <button id="convertButton" disabled>Convert Images</button>
-    </div>
-    
-    <div class="progress-container" id="progressContainer" style="display: none;">
-        <h3>Reading Files...</h3>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
+
+        <!-- Right Column: Converter Functionality -->
+        <div class="functionality-section">
+            <div class="quick-start">
+                <h3>🚀 Quick Start</h3>
+                <p>Ready to convert? Just upload your images and choose your format!</p>
+            </div>
+            
+            <div class="file-input-container">
+                <input type="file" multiple id="fileInput" accept="image/*">
+                <div class="format-selection">
+                    <label for="formatSelect">Convert to:</label>
+                    <select id="formatSelect">
+                        <option value="webp">WebP</option>
+                        <option value="avif">AVIF</option>
+                    </select>
+                </div>
+                <button id="convertButton" disabled>Convert Images</button>
+            </div>
+            
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <h3>Reading Files...</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div id="progressText">0 / 0 files processed</div>
+            </div>
+            
+            <div class="file-list" id="fileList"></div>
+            <div id="output"></div>
         </div>
-        <div id="progressText">0 / 0 files processed</div>
     </div>
-    
-    <div class="file-list" id="fileList"></div>
-    <div id="output"></div>
 
     <script type="module" src="js/app.js"></script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Image Convert",
+          "url": "https://aakashdinkar.in/image-convert/",
+          "description": "Free online tool to convert PNG and JPEG images to WebP and AVIF formats instantly.",
+          "applicationCategory": "Utility",
+          "operatingSystem": "Any",
+          "creator": {
+            "@type": "Person",
+            "name": "Aakash Dinkar",
+            "url": "https://aakashdinkar.in/"
+          }
+        }
+    </script>        
 </body>
 </html> 
