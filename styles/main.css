@@ -2,6 +2,9 @@
 * {
   box-sizing: border-box;
 }
+html {
+  font-size: 16px;
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   max-width: 1240px;
@@ -430,6 +433,11 @@ button:disabled {
 }
 
 /* Responsive Design */
+@media (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+}
 @media (max-width: 768px) {
   .main-container {
     grid-template-columns: 1fr;
