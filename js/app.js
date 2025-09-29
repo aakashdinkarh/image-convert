@@ -18,6 +18,7 @@ class ImageConverterApp {
         this.ui.incrementVisitCount();
 
         this.initializeEventListeners();
+        this.initializeConversionInfo();
     }
 
     /**
@@ -29,6 +30,26 @@ class ImageConverterApp {
 
         fileInput.addEventListener('change', (event) => this.handleFileSelect(event));
         convertButton.addEventListener('click', () => this.handleConvert());
+
+        // Add format change listener
+        const formatSelect = document.getElementById('formatSelect');
+        formatSelect.addEventListener('change', () => this.updateConversionInfo());
+    }
+
+    /**
+     * Initialize conversion method information
+     */
+    initializeConversionInfo() {
+        this.updateConversionInfo();
+    }
+
+    /**
+     * Update conversion method information based on selected format
+     */
+    updateConversionInfo() {
+        const selectedFormat = this.getSelectedFormat();
+        const webpSupported = this.imageConverter.webpSupported;
+        this.ui.showConversionMethodInfo(selectedFormat, webpSupported);
     }
 
     /**

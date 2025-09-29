@@ -112,6 +112,64 @@ body {
   opacity: 0;
 }
 
+/* Conversion Method Indicators */
+.conversion-method {
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.conversion-method.browser {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.conversion-method.server {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+/* Conversion Info Display */
+.conversion-info {
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  border-left: 4px solid;
+}
+
+.conversion-info.browser-info {
+  background: #f1f8e9;
+  border-left-color: #4caf50;
+  color: #2e7d32;
+}
+
+.conversion-info.server-info {
+  background: #e3f2fd;
+  border-left-color: #2196f3;
+  color: #1565c0;
+}
+
+.conversion-info.avif-limits {
+  background: #fff3e0;
+  border-left-color: #ff9800;
+  color: #e65100;
+}
+
+.conversion-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.conversion-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
 .functionality-section {
   /* Right column - Converter functionality */
   position: sticky;

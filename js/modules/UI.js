@@ -131,6 +131,44 @@ export class UI {
     }
 
     /**
+     * Show conversion method information
+     * @param {string} format - Target format (webp or avif)
+     * @param {boolean} webpSupported - Whether WebP is supported in browser
+     */
+    showConversionMethodInfo(format, webpSupported) {
+        let message = '';
+
+        if (format === 'webp' && webpSupported) {
+            message = `
+                <div class="conversion-info browser-info">
+                    <h3>🌐 Browser Conversion</h3>
+                    <p>Your browser supports WebP conversion. Images will be converted locally without any server uploads.</p>
+                </div>
+            `;
+        } else if (format === 'webp' && !webpSupported) {
+            message = `
+                <div class="conversion-info server-info">
+                    <h3>☁️ Server Conversion</h3>
+                    <p>Your browser doesn't support WebP conversion. Images will be uploaded to our server for conversion.</p>
+                </div>
+            `;
+        } else if (format === 'avif') {
+            message = `
+                <div class="conversion-info server-info">
+                    <h3>☁️ Server Conversion</h3>
+                    <p>AVIF conversion requires server processing. Images will be uploaded to our server for conversion.</p>
+                </div>
+                <div class="conversion-info avif-limits">
+                    <h3>⚠️ AVIF Processing Limits</h3>
+                    <p>Due to free server limitations, AVIF conversion may fail for bigger files. For reliable conversion, use WebP format or try smaller files.</p>
+                </div>
+            `;
+        }
+
+        this.output.innerHTML = message;
+    }
+
+    /**
      * Show reading message
      */
     hideConvertedMessage() {
@@ -188,7 +226,7 @@ export class UI {
      * @param {string} format - Target format (webp or avif)
      */
     async displayConversionResult(index, result, format) {
-        const { dataUrl, originalSize, convertedSize, reductionPercentage, fileName } = result;
+        const { dataUrl, originalSize, convertedSize, reductionPercentage, fileName, conversionMethod } = result;
 
         // Update file info
         const fileInfoElement = document.getElementById(`file-info-${index}`);
