@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "node build/build.js",
     "build:prod": "node build/build.js --production",
-    "dev": "node build/dev-server.js",
+    "dev": "node build/dev-server.js --minify-css",
     "dev:minified": "node build/dev-server.js --minify-css"
   },
   "keywords": [

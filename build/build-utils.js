@@ -29,14 +29,12 @@ function minifyCSS(css) {
  * @returns {Promise<string>} Processed CSS content
  */
 async function processCSS(cssPath, shouldMinify = false) {
-    console.log('🎨 Processing CSS...');
     let cssContent = await fs.readFile(cssPath, 'utf8');
-    
+
     if (shouldMinify) {
-        console.log('🔧 Minifying CSS...');
         cssContent = minifyCSS(cssContent);
     }
-    
+
     return cssContent;
 }
 
@@ -45,24 +43,57 @@ async function processCSS(cssPath, shouldMinify = false) {
  * @param {string} htmlPath - Path to HTML template
  * @param {string} cssContent - CSS content to inline
  * @param {string} scriptSrc - Script source to use
+ * @param {boolean} isDevelopment - Whether this is a development build
+ * @param {number} port - Development server port for hot reload
  * @returns {Promise<string>} Processed HTML content
  */
-async function processHTML(htmlPath, cssContent, scriptSrc) {
-    console.log('📄 Processing HTML template...');
+async function processHTML(htmlPath, cssContent, scriptSrc, isDevelopment = false, port = 3000) {
     let htmlContent = await fs.readFile(htmlPath, 'utf8');
-    
+
     // Inline CSS
     htmlContent = htmlContent.replace(
         config.htmlReplacements.cssLink,
         `<style>${cssContent}</style>`
     );
-    
+
     // Replace module script with bundled script
     htmlContent = htmlContent.replace(
         config.htmlReplacements.moduleScript,
         `<script src="${scriptSrc}"></script>`
     );
-    
+
+    // Add hot reload script for development
+    if (isDevelopment) {
+        const hotReloadScript = `
+    <!-- Hot Reload Script for Development -->
+    <script>
+        // Only enable hot reload in development
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            const eventSource = new EventSource('http://localhost:${port + 1}/hot-reload');
+            
+            eventSource.onopen = function() {
+                console.log('🔥 Hot reload connected');
+            };
+            
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.type === 'hot-reload') {
+                    console.log('🔥 Hot reload triggered for ' + data.fileType);
+                    // Reload the page to show changes
+                    window.location.reload();
+                }
+            };
+            
+            eventSource.onerror = function(error) {
+                console.log('🔥 Hot reload error:', error);
+            };
+        }
+    </script>`;
+
+        // Insert hot reload script before the closing body tag
+        htmlContent = htmlContent.replace('</body>', `${hotReloadScript}\n</body>`);
+    }
+
     return htmlContent;
 }
 
@@ -92,14 +123,14 @@ function printBuildSummary({ outputDir, htmlPath, bundlePath, isProduction, cssM
     const bundleStats = getFileStats(bundlePath);
     const htmlStats = getFileStats(htmlPath);
     const totalSize = bundleStats.size + htmlStats.size;
-    
+
     console.log('✅ Build completed successfully!');
     console.log(`📁 Output directory: ${outputDir}`);
     console.log(`📄 HTML file: ${htmlPath}`);
     console.log(`📦 Bundle size: ${bundleStats.sizeKB} KB`);
     console.log(`📄 HTML size: ${htmlStats.sizeKB} KB`);
     console.log(`📊 Total size: ${(totalSize / 1024).toFixed(2)} KB`);
-    
+
     console.log('');
     console.log('📋 Build Summary:');
     console.log('   ✅ JavaScript modules bundled into bundle.js');
@@ -117,19 +148,10 @@ function printBuildSummary({ outputDir, htmlPath, bundlePath, isProduction, cssM
  * @param {boolean} cssMinified - Whether CSS is minified
  */
 function printDevServerInfo(port, cssMinified = false) {
-    console.log('✅ Development server started successfully!');
-    console.log('');
-    console.log('📋 Development Features:');
-    console.log('   🔄 Hot Module Reload (HMR) enabled');
-    console.log('   📍 Source maps for debugging');
-    console.log('   ⚡ Fast rebuilds on file changes');
-    console.log(`   🌐 Live server at http://localhost:${port}`);
+    console.log('✅ Ready! Hot reload enabled');
     if (cssMinified) {
-        console.log('   🔧 CSS minified');
+        console.log('🔧 CSS minified');
     }
-    console.log('');
-    console.log('💡 Edit your files and see changes instantly!');
-    console.log('🛑 Press Ctrl+C to stop the server');
 }
 
 module.exports = {
