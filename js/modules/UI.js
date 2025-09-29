@@ -8,6 +8,75 @@ export class UI {
         this.output = document.getElementById('output');
         this.progressContainer = document.getElementById('progressContainer');
         this.fileList = document.getElementById('fileList');
+        this.instructionsSection = document.getElementById('instructionsSection');
+        this.instructionsHeader = document.getElementById('instructionsHeader');
+        this.collapseToggle = document.getElementById('collapseToggle');
+
+        this.initializeInstructions();
+    }
+
+    /**
+     * Initialize instructions section with localStorage functionality
+     */
+    initializeInstructions() {
+        const visitCount = this.getVisitCount();
+
+        // If user has visited more than once, collapse instructions by default
+        if (visitCount > 1) {
+            this.collapseInstructions();
+        }
+
+        // Add click event listener to toggle instructions
+        this.instructionsHeader.addEventListener('click', () => {
+            this.toggleInstructions();
+        });
+    }
+
+    /**
+     * Get visit count from localStorage
+     * @returns {number} Number of times user has visited
+     */
+    getVisitCount() {
+        const count = localStorage.getItem('imageConvert_visitCount');
+        return count ? parseInt(count, 10) : 0;
+    }
+
+    /**
+     * Increment visit count in localStorage
+     */
+    incrementVisitCount() {
+        const currentCount = this.getVisitCount();
+        localStorage.setItem('imageConvert_visitCount', (currentCount + 1).toString());
+
+        // If this is the second visit, collapse instructions
+        if (currentCount === 1) {
+            this.collapseInstructions();
+        }
+    }
+
+    /**
+     * Toggle instructions visibility
+     */
+    toggleInstructions() {
+        if (this.instructionsSection.classList.contains('collapsed')) {
+            this.expandInstructions();
+        } else {
+            this.collapseInstructions();
+        }
+    }
+
+    /**
+     * Collapse instructions section
+     */
+    collapseInstructions() {
+        this.instructionsSection.classList.add('collapsed');
+    }
+
+    /**
+     * Expand instructions section
+     */
+    expandInstructions() {
+        this.instructionsSection.classList.remove('collapsed');
     }
 
     /**
@@ -120,22 +189,22 @@ export class UI {
      */
     async displayConversionResult(index, result, format) {
         const { dataUrl, originalSize, convertedSize, reductionPercentage, fileName } = result;
-        
+
         // Update file info
         const fileInfoElement = document.getElementById(`file-info-${index}`);
         const sizeClass = reductionPercentage > 0 ? 'size-reduction' : 'size-increase';
         const sizeText = reductionPercentage > 0 ? 'reduced' : 'increased';
         const formatUpper = format.toUpperCase();
-        
+
         fileInfoElement.innerHTML = `
             Original: ${(originalSize / 1024).toFixed(1)} KB | 
             ${formatUpper}: ${(convertedSize / 1024).toFixed(1)} KB | 
             <span class="${sizeClass}">${sizeText} by ${Math.abs(reductionPercentage)}%</span>
         `;
-        
+
         // Create action links
         const actionLinks = await this.createActionLinks(dataUrl, fileName, format);
-        
+
         // Update status with action links
         const statusElement = document.getElementById(`status-${index}`);
         statusElement.innerHTML = 'Converted successfully ';
@@ -153,14 +222,14 @@ export class UI {
     async createActionLinks(dataUrl, fileName, format) {
         const actionLinks = document.createElement('div');
         actionLinks.className = 'action-links';
-        
+
         // Create download link
         const downloadLink = document.createElement('a');
         downloadLink.href = dataUrl;
         downloadLink.download = fileName;
         downloadLink.textContent = `Download ${format.toUpperCase()}`;
         downloadLink.className = 'download-link';
-        
+
         // Create view link
         const viewLink = document.createElement('a');
         const response = await fetch(dataUrl);
@@ -170,10 +239,10 @@ export class UI {
         viewLink.target = '_blank';
         viewLink.textContent = `View ${format.toUpperCase()}`;
         viewLink.className = 'view-link';
-        
+
         actionLinks.appendChild(downloadLink);
         actionLinks.appendChild(viewLink);
-        
+
         return actionLinks;
     }
 } 

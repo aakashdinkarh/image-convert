@@ -10,10 +10,13 @@ class ImageConverterApp {
         this.fileProcessor = new FileProcessor();
         this.ui = new UI();
         this.imageConverter = new ImageConverter();
-        
+
         // Connect UI to FileProcessor
         this.fileProcessor.setUI(this.ui);
-        
+
+        // Increment visit count on page load
+        this.ui.incrementVisitCount();
+
         this.initializeEventListeners();
     }
 
@@ -48,7 +51,7 @@ class ImageConverterApp {
         this.ui.showProgress();
         this.ui.resetFileList();
         this.ui.hideConvertedMessage();
-        
+
         try {
             await this.fileProcessor.processFiles(files);
             this.ui.hideProgress();
@@ -66,7 +69,7 @@ class ImageConverterApp {
     async handleConvert() {
         const processedFiles = this.fileProcessor.getProcessedFiles();
         const selectedFormat = this.getSelectedFormat();
-        
+
         if (processedFiles.length === 0) {
             alert('No files to convert. Please select files first.');
             return;
@@ -82,10 +85,10 @@ class ImageConverterApp {
         processedFiles.forEach(async (fileData) => {
             try {
                 this.ui.updateFileStatus(fileData.index, `Converting to ${selectedFormat.toUpperCase()}...`, 'loading');
-                
+
                 const result = await this.imageConverter.convertToFormat(fileData, selectedFormat);
                 this.ui.displayConversionResult(fileData.index, result, selectedFormat);
-                
+
             } catch (error) {
                 console.error('Error converting file:', fileData.file.name, error);
                 this.ui.updateFileStatus(fileData.index, 'Conversion failed', 'error');
