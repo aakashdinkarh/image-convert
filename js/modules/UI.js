@@ -8,6 +8,77 @@ export class UI {
         this.output = document.getElementById('output');
         this.progressContainer = document.getElementById('progressContainer');
         this.fileList = document.getElementById('fileList');
+        this.enableResizeCheckbox = document.getElementById('enableResize');
+        this.resizeControls = document.getElementById('resizeControls');
+        
+        this.initializeResizeControls();
+    }
+
+    /**
+     * Initialize resize control event listeners
+     */
+    initializeResizeControls() {
+        if (this.enableResizeCheckbox) {
+            this.enableResizeCheckbox.addEventListener('change', (e) => {
+                this.resizeControls.style.display = e.target.checked ? 'block' : 'none';
+            });
+        }
+    }
+
+    /**
+     * Get resize options from the UI
+     * @returns {Object|null} Resize options or null if resize is disabled
+     */
+    getResizeOptions() {
+        if (!this.enableResizeCheckbox || !this.enableResizeCheckbox.checked) {
+            return null;
+        }
+
+        const width = document.getElementById('resizeWidth').value;
+        const height = document.getElementById('resizeHeight').value;
+        const fit = document.getElementById('resizeFit').value;
+
+        // Only return options if at least one dimension is specified
+        if (!width && !height) {
+            return null;
+        }
+
+        const options = {};
+        if (width) options.width = parseInt(width);
+        if (height) options.height = parseInt(height);
+        if (fit) options.fit = fit;
+
+        return options;
+    }
+
+    /**
+     * Validate resize options
+     * @returns {boolean} True if resize options are valid
+     */
+    validateResizeOptions() {
+        if (!this.enableResizeCheckbox || !this.enableResizeCheckbox.checked) {
+            return true; // Resize is disabled, so it's valid
+        }
+
+        const width = document.getElementById('resizeWidth').value;
+        const height = document.getElementById('resizeHeight').value;
+
+        if (!width && !height) {
+            alert('Please specify at least one dimension (width or height) when resize is enabled.');
+            return false;
+        }
+
+        if (width && parseInt(width) <= 0) {
+            alert('Width must be greater than 0.');
+            return false;
+        }
+
+        if (height && parseInt(height) <= 0) {
+            alert('Height must be greater than 0.');
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -117,8 +188,9 @@ export class UI {
      * @param {number} index - File index
      * @param {Object} result - Conversion result
      * @param {string} format - Target format (webp or avif)
+     * @param {Object} resizeOptions - Resize options used (if any)
      */
-    async displayConversionResult(index, result, format) {
+    async displayConversionResult(index, result, format, resizeOptions = null) {
         const { dataUrl, originalSize, convertedSize, reductionPercentage, fileName } = result;
         
         // Update file info
@@ -127,10 +199,21 @@ export class UI {
         const sizeText = reductionPercentage > 0 ? 'reduced' : 'increased';
         const formatUpper = format.toUpperCase();
         
+        let resizeInfo = '';
+        if (resizeOptions) {
+            const dimensions = [];
+            if (resizeOptions.width) dimensions.push(`${resizeOptions.width}px`);
+            if (resizeOptions.height) dimensions.push(`${resizeOptions.height}px`);
+            if (dimensions.length > 0) {
+                resizeInfo = ` | Resized to ${dimensions.join(' × ')} (${resizeOptions.fit})`;
+            }
+        }
+        
         fileInfoElement.innerHTML = `
             Original: ${(originalSize / 1024).toFixed(1)} KB | 
             ${formatUpper}: ${(convertedSize / 1024).toFixed(1)} KB | 
             <span class="${sizeClass}">${sizeText} by ${Math.abs(reductionPercentage)}%</span>
+            ${resizeInfo}
         `;
         
         // Create action links

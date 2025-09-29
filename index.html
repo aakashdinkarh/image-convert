@@ -115,6 +115,45 @@
             </div>
             
             <div class="file-input-container">
+                <div class="resize-options">
+                    <label>
+                        <input type="checkbox" id="enableResize"> Enable resize
+                    </label>
+                    <div class="resize-controls" id="resizeControls" style="display: none;">
+                        <div class="resize-inputs">
+                            <div class="input-group">
+                                <label for="resizeWidth">Width:</label>
+                                <input type="number" id="resizeWidth" placeholder="Auto" min="1">
+                                <small>Leave empty to maintain aspect ratio</small>
+                            </div>
+                            <div class="input-group">
+                                <label for="resizeHeight">Height:</label>
+                                <input type="number" id="resizeHeight" placeholder="Auto" min="1">
+                                <small>Leave empty to maintain aspect ratio</small>
+                            </div>
+                        </div>
+                        <div class="fit-options">
+                            <label for="resizeFit">Fit strategy:</label>
+                            <select id="resizeFit">
+                                <option value="cover">Cover - Crop to fill dimensions</option>
+                                <option value="contain">Contain - Fit within dimensions</option>
+                                <option value="fill">Fill - Stretch to fill dimensions</option>
+                                <option value="inside">Inside - Fit inside dimensions</option>
+                                <option value="outside">Outside - Fit outside dimensions</option>
+                            </select>
+                        </div>
+                        <div class="resize-help">
+                            <small>
+                                <strong>Cover:</strong> Image covers the entire area, may crop parts<br>
+                                <strong>Contain:</strong> Entire image fits within area, may have padding<br>
+                                <strong>Fill:</strong> Image fills area completely, may distort<br>
+                                <strong>Inside:</strong> Image fits inside area, maintains aspect ratio<br>
+                                <strong>Outside:</strong> Image fits outside area, maintains aspect ratio
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
                 <input type="file" multiple id="fileInput" accept="image/*">
                 <div class="format-selection">
                     <label for="formatSelect">Convert to:</label>

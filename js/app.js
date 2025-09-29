@@ -66,9 +66,15 @@ class ImageConverterApp {
     async handleConvert() {
         const processedFiles = this.fileProcessor.getProcessedFiles();
         const selectedFormat = this.getSelectedFormat();
+        const resizeOptions = this.ui.getResizeOptions();
         
         if (processedFiles.length === 0) {
             alert('No files to convert. Please select files first.');
+            return;
+        }
+
+        // Validate resize options if resize is enabled
+        if (!this.ui.validateResizeOptions()) {
             return;
         }
 
@@ -83,8 +89,8 @@ class ImageConverterApp {
             try {
                 this.ui.updateFileStatus(fileData.index, `Converting to ${selectedFormat.toUpperCase()}...`, 'loading');
                 
-                const result = await this.imageConverter.convertToFormat(fileData, selectedFormat);
-                this.ui.displayConversionResult(fileData.index, result, selectedFormat);
+                const result = await this.imageConverter.convertToFormat(fileData, selectedFormat, resizeOptions);
+                this.ui.displayConversionResult(fileData.index, result, selectedFormat, resizeOptions);
                 
             } catch (error) {
                 console.error('Error converting file:', fileData.file.name, error);
